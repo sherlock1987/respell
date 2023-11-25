@@ -20,7 +20,7 @@ def data_to_token_classification(filenames, tokenizer, save_filename, reverse=Fa
                     continue
                 items = [x.strip() for x in items]
                 # if len(items[1]) != len(items[2]):
-                #     print(
+                #     print(--
                 #         'data mismatch, ignore! {}->{}'.format(items[1], items[2]))
                 total_count += 1
                 if not reverse:
@@ -70,24 +70,24 @@ def get_token_labels(tokenizer, input_sent, output_sent, max_length=512):
 
 filemaps = {
     "sim": [
-        "/data1/ssq/experiment/ECSpell-main/csc_evaluation/builds/sim/domain/law.train",
-        "/data1/ssq/experiment/ECSpell-main/csc_evaluation/builds/sim/domain/law_js.train",
-        "/data1/ssq/experiment/ECSpell-main/csc_evaluation/builds/sim/domain/law.trainsep",
-        "/data1/ssq/experiment/ECSpell-main/csc_evaluation/builds/sim/domain/law.traintgt",
-        "/data1/ssq/experiment/ECSpell-main/csc_evaluation/builds/sim/domain/law.dev",
-        "/data1/ssq/experiment/ECSpell-main/csc_evaluation/builds/sim/domain/law_js.dev",
-        "/data1/ssq/experiment/ECSpell-main/csc_evaluation/builds/sim/domain/law.devsep",
-        "/data1/ssq/experiment/ECSpell-main/csc_evaluation/builds/sim/domain/law.devtgt",
-        "/data1/ssq/experiment/ECSpell-main/csc_evaluation/builds/sim/domain/law_js.test",
+        "/Users/hzx/Desktop/work_project/python_project/respell/csc_evaluation/builds/sim/domain/law.train",
+        "/Users/hzx/Desktop/work_project/python_project/respell/csc_evaluation/builds/sim/domain/law_js.train",
+        # "/Users/hzx/Desktop/work_project/python_project/respell/csc_evaluation/builds/sim/domain/law.trainsep",
+        "/Users/hzx/Desktop/work_project/python_project/respell/csc_evaluation/builds/sim/domain/law.traintgt",
+        "/Users/hzx/Desktop/work_project/python_project/respell/csc_evaluation/builds/sim/domain/law.dev",
+        "/Users/hzx/Desktop/work_project/python_project/respell/csc_evaluation/builds/sim/domain/law_js.dev",
+        # "/Users/hzx/Desktop/work_project/python_project/respell/csc_evaluation/builds/sim/domain/law.devsep",
+        "/Users/hzx/Desktop/work_project/python_project/respell/csc_evaluation/builds/sim/domain/law.devtgt",
+        "/Users/hzx/Desktop/work_project/python_project/respell/csc_evaluation/builds/sim/domain/law_js.test",
     ],
 }
 reverse = False
 model_list = ["glyce"]
 
 for model_name in model_list:
-    tokenizer = AutoTokenizer.from_pretrained("/data1/ssq/experiment/RSpell/Transformers/glyce")
+    tokenizer = AutoTokenizer.from_pretrained("/Users/hzx/Desktop/work_project/python_project/respell/Transformers/glyce")
     for font_type, filenames in filemaps.items():
-        save_dir = f'Data/traintest/{font_type}/{model_name}'
+        save_dir = f'/Users/hzx/Desktop/work_project/python_project/respell/Data/traintest/{font_type}/{model_name}'
         print(f"Model name: {model_name}\tFont type: {font_type}")
         for filename in filenames:
             corpus_type = filename.split("/")[-2]

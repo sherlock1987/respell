@@ -139,7 +139,6 @@ def main():
         result_dir = os.path.abspath("Results/rspell")
     else:
         result_dir = "/data1/ssq/experiment/RSpell/Results/pre157500_lawjs"
-
     tokenizer_filename="/data1/ssq/experiment/RSpell/Transformers/glyce"
     test_filenames = [
          "/data1/ssq/experiment/RSpell/csc_evaluation/builds/sim/domain/law_js.test",

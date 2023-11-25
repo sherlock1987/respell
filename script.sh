@@ -36,11 +36,4 @@ python -m torch.distributed.launch   --master_port 29506\
 	--fp16 True \
 	--do_test False \
 
-
 # nohup bash script.sh > pre157500_lawjs.log 2>&1 &
-
-
-
-
-
-
