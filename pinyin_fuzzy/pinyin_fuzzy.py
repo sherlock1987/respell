@@ -20,9 +20,14 @@ def hanzi2pinyin(ch):
 
     
 
-def domain_in_query(b):
+def domain_in_query(root_path, data_name, b):
+    """
+    root_path: 根目录
+    data_name: 领域的名字
+    b: query
+    """
     words=[]
-    data = pd.read_csv("/data1/ssq/experiment/RSpell/pinyin_fuzzy/lawpinyin.txt", encoding="utf-8",sep='\t')
+    data = pd.read_csv(os.path.join(root_path, "pinyin_fuzzy/{}pinyin.txt".format(data_name)), encoding="utf-8",sep='\t')
     data_split_word = data.word.apply(jieba.lcut)
     dictionary = corpora.Dictionary(data_split_word.values)
     data_corpus = data_split_word.apply(dictionary.doc2bow)
@@ -58,21 +63,25 @@ def domain_in_query(b):
         
         
 if __name__ == '__main__':
-    file_data=''
-    with open("/data1/ssq/experiment/RSpell/csc_evaluation/builds/sim/domain/law.train", 'r', encoding='utf-8') as f:
-        datas=f.readlines()
-        for i,data in enumerate(tqdm(datas)):   
-            a,b,c=data.strip().split('\t')
-            query_content=c
+    data_name_list = ["law", "med", "odw"]
+    for data_name in data_name_list:
+        file_data=''
+        root_path = "/Users/hzx/Desktop/work_project/python_project/respell"
+        with open(os.path.join(root_path, "csc_evaluation/builds/sim/domain/{}.train".format(data_name)), 'r', encoding='utf-8') as f:
+            datas=f.readlines()
+            for i,data in enumerate(tqdm(datas)):
+                a,b,c=data.strip().split('\t')
+                query_content=c
 
-            result_domain = domain_in_query(b)
-            if len(result_domain)!=0:
-                b=b+'[SEP]'+'领域词是'+result_domain
-            else:
-                b=b
-            l=a+'\t'+b+'\t'+c+'\n'
-            file_data+=l
+                result_domain = domain_in_query(root_path, data_name,b)
+                if len(result_domain)!=0:
+                    b=b+'领域词是'+result_domain
+                else:
+                    b=b
+                l=a+'\t'+b+'\t'+c+'\n'
+                file_data+=l
 
-    with open("/data1/ssq/experiment/RSpell/csc_evaluation/builds/sim/domain/law_js.train", 'w', encoding='utf-8') as f:
-        for i in file_data:
-            f.write(i)
+        # 加入js代表了引入检索之后的结果
+        with open(os.path.join(root_path, "csc_evaluation/builds/sim/domain/{}_retrieve_respell.train".format(data_name)), 'w', encoding='utf-8') as f:
+            for i in file_data:
+                f.write(i)
