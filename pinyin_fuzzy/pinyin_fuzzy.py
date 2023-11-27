@@ -65,23 +65,28 @@ def domain_in_query(root_path, data_name, b):
 if __name__ == '__main__':
     data_name_list = ["law", "med", "odw"]
     for data_name in data_name_list:
+        count_line = 0
         file_data=''
         root_path = "/Users/hzx/Desktop/work_project/python_project/respell"
         with open(os.path.join(root_path, "csc_evaluation/builds/sim/domain/{}.train".format(data_name)), 'r', encoding='utf-8') as f:
             datas=f.readlines()
             for i,data in enumerate(tqdm(datas)):
+                # a: 错误的数字 b：错误的query c：正确的回答
                 a,b,c=data.strip().split('\t')
                 query_content=c
 
                 result_domain = domain_in_query(root_path, data_name,b)
                 if len(result_domain)!=0:
-                    b=b+'领域词是'+result_domain
+                    b=b+'，领域词是'+result_domain
                 else:
                     b=b
                 l=a+'\t'+b+'\t'+c+'\n'
                 file_data+=l
+                count_line += 1
+                # if count_line == 3:
+                #     break
 
-        # 加入js代表了引入检索之后的结果
-        with open(os.path.join(root_path, "csc_evaluation/builds/sim/domain/{}_retrieve_respell.train".format(data_name)), 'w', encoding='utf-8') as f:
-            for i in file_data:
-                f.write(i)
+            # 加入js代表了引入检索之后的结果，每一个for循环都写出最终结果
+            with open(os.path.join(root_path, "csc_evaluation/builds/sim/domain/{}_retrieve_respell.train".format(data_name)), 'w', encoding='utf-8') as f:
+                for i in file_data:
+                    f.write(i)
