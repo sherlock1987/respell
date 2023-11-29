@@ -60,7 +60,7 @@ def domain_in_query(root_path, data_name, b):
     words=list(set(words))
     words=','.join(words)
     return words 
-        
+
         
 if __name__ == '__main__':
     data_name_list = ["law", "med", "odw"]
